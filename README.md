@@ -8,18 +8,18 @@
 - Bruno Paz De Noboa Arana
 
 # Requisitos
-•	Carga de datos: Su aplicación debe leer los datos desde archivos de texto desde una ruta determinada. Puede usar dataset de Kaggle.
-•	La aplicación debe soportar registro de usuarios.
-•	La aplicación deberá permitir el ingreso de transacciones.
-•	Se debe indexar los bloques en un árbol binario por criterio (seleccionar al menos 3 criterios distintos)
-•	Por cada usuario, deben aparecer las transacciones realizadas.
-•	Implementar funcionalidad que permita el filtrado de datos por:
- ○	Igual a.
- ○	Inicia con.
- ○	Finaliza con.
- ○	Está contenido en.
- ○	No está contenido en
-•	Implementar funcionalidad que permita el cálculo entre las transacciones por usuario.
+- Carga de datos: Su aplicación debe leer los datos desde archivos de texto desde una ruta determinada. Puede usar dataset de Kaggle.
+- La aplicación debe soportar registro de usuarios.
+- La aplicación deberá permitir el ingreso de transacciones.
+- Se debe indexar los bloques en un árbol binario por criterio (seleccionar al menos 3 criterios distintos)
+- Por cada usuario, deben aparecer las transacciones realizadas.
+- Implementar funcionalidad que permita el filtrado de datos por:
+   •	Igual a.
+   •	Inicia con.
+   •	Finaliza con.
+   •	Está contenido en.
+   •	No está contenido en
+- Implementar funcionalidad que permita el cálculo entre las transacciones por usuario.
 
 # Rúbrica de calificación
 •	(2 puntos) Desarrollo de las estructuras de datos de la solución  correctamente implementado y su respectiva complejidad de los métodos haciendo uso de POO.
