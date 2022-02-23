@@ -1,26 +1,38 @@
 #ifndef DOUBLY_H
 #define DOUBLY_H
-#include "list.h"
+#include "node.h"
 
 template <class T>
-class DoubleList : public List<T>
+class DoubleList
 {
 private:
-public:
-    DoubleList() : List<T>() {}
+    Node<T> *head;
+    Node<T> *tail;
+    int nodes;
 
-    ~DoubleList(){
-        while (this->nodes > 0) {
+public:
+    DoubleList() : head(nullptr), tail(nullptr), nodes(0) {}
+
+    ~DoubleList()
+    {
+        while (this->nodes > 0)
+        {
             this->pop_back();
         }
     }
-
 
     T front()
     {
         if (is_empty())
             throw("No se puede acceder al inicio: No hay elementos");
         return this->head->data;
+    }
+
+    Node<T> *front1()
+    {
+        if (is_empty())
+            throw("No se puede acceder al inicio: No hay elementos");
+        return this->head;
     }
 
     T back()
@@ -30,9 +42,16 @@ public:
         return this->tail->data;
     }
 
+    Node<T> *back1()
+    {
+        if (is_empty())
+            throw("No se puede acceder al final: No hay elementos");
+        return this->tail;
+    }
+
     void push_front(T data)
     {
-        Node<T>* newNode = new Node<T>(data);
+        Node<T> *newNode = new Node<T>(data);
         newNode->next = this->head;
         if (!is_empty())
             this->head->prev = newNode;
@@ -44,14 +63,20 @@ public:
 
     void push_back(T data)
     {
-        Node<T>* newNode = new Node<T>(data);
-        newNode->prev = this->tail;
-        if (!is_empty())
-            this->tail->next = newNode;
+        Node<T> *newNode = new Node<T>(data);
+        if (this->is_empty())
+        {
+            this->head = this->tail = newNode;
+            this->nodes++;
+            return;
+        }
         else
-            this->head = newNode;
-        this->tail = newNode;
-        this->nodes++;
+        {
+            this->tail->next = newNode;
+            newNode->prev = tail;
+            this->tail = newNode;
+            this->nodes++;
+        }
     }
 
     T pop_front()
@@ -102,8 +127,8 @@ public:
             this->push_front(data);
         else
         {
-            Node<T>* nuevo = new Node<T>(data);
-            Node<T>* temp = this->head;
+            Node<T> *nuevo = new Node<T>(data);
+            Node<T> *temp = this->head;
             int i = 0;
             while (i++ < pos - 1)
                 temp = temp->next;
@@ -121,48 +146,73 @@ public:
         int size = this->size();
         if (this->is_empty())
             return false;
-        Node<T>* temp = this->head;
-        if (size > 1) {
+        Node<T> *temp = this->head;
+        if (back1() == _find(pos))
+        {
+            pop_back();
+            return true;
+        }
+        else if (front1() == _find(pos))
+        {
+            pop_front();
+            return true;
+        }
+        if (size > 1)
+        {
             while (temp && temp->next != _find(pos))
             {
                 temp = temp->next;
             }
-            Node<T>* temp2 = temp->next;
+            Node<T> *temp2 = temp->next;
+            temp2->next->prev = temp;
             temp->next = temp2->next;
+            temp2->next = nullptr;
             delete temp2;
             this->nodes--;
         }
-        else {
-            this->pop_front();
-        }
-        
         return true;
     }
 
-    T& operator[](int pos)
+    Node<T> *_find(int index)
     {
-        Node<T>* temp = this->head;
+        if (index > this->size())
+            return nullptr;
+        Node<T> *current = this->head;
+        for (int i = 0; i < index; i++)
+        {
+            current = current->next;
+        }
+        return current;
+    }
+
+    T &operator[](int pos)
+    {
+        Node<T> *temp = this->head;
         for (int i = 0; i < pos; i++)
             temp = temp->next;
         return temp->data;
         throw("no implementado");
     }
 
-    class Iterator{
-        Node<T>* v;
+    class Iterator
+    {
+        Node<T> *v;
         int pos;
 
     public:
-        Iterator(Node<T>* v, int pos) {
+        Iterator(Node<T> *v, int pos)
+        {
             this->v = v;
             this->pos = pos;
         }
 
-        void operator++() {
+        void operator++()
+        {
             v = v->next;
             pos++;
         }
-        void operator--() {
+        void operator--()
+        {
             v = v->prev;
             pos--;
         }
@@ -173,29 +223,12 @@ public:
     };
 
     Iterator begin() { return Iterator(this->head, 0); }
-
     Iterator end() { return Iterator(nullptr, this->nodes); }
-
     Iterator rbegin() { return Iterator(this->tail, this->nodes - 1); }
-
     Iterator rend() { return Iterator(nullptr, -1); }
 
-    bool is_empty(){
-        return this->head == nullptr && this->tail == nullptr;
-    }
+    bool is_empty() { return this->head == nullptr && this->tail == nullptr; }
 
-    int size(){ return this->nodes;}
-
-    Node<T>* _find(int index){
-        if (index > this->size())
-            return nullptr;
-        Node<T>* current = this->head;
-        for (int i = 0; i < index; i++)
-        {
-            current = current->next;
-        }
-        return current;
-    }
-
+    int size() { return this->nodes; }
 };
 #endif
