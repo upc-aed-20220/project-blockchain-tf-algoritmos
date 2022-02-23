@@ -1,5 +1,3 @@
-#ifndef NODE_H
-#define NODE_H
 
 template <typename T>
 struct Node {
@@ -7,14 +5,9 @@ struct Node {
     Node<T>* next;
     Node<T>* prev;
 
-    Node() {
-        this->next = this->prev = nullptr;
-    }
+    Node() { this->next = this->prev = nullptr;}
 
-    Node(T value) {
-        this->data = value;
-        this->next = this->prev = nullptr;
-    }
+    Node(T value) { this->data = value; this->next = this->prev = nullptr;}
 
     void killSelf() {
         if (next != nullptr)
@@ -23,4 +16,3 @@ struct Node {
     }
 };
 
-#endif
