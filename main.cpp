@@ -144,15 +144,15 @@ void menuBusquedaArbol(BlockChain *myblockchain)
         {
             int dia, mes, anio;
             cout << "\n\tIngrese la fecha (Dia-Mes-Anio)\n\n";
-            cout << "Ingrese el dia\t:";
+            cout << "Ingrese el dia\t: ";
             cin >> dia;
-            cout << "Ingrese el mes\t:";
+            cout << "Ingrese el mes\t: ";
             cin >> mes;
-            cout << "Ingrese el anio\t:";
+            cout << "Ingrese el anio\t: ";
             cin >> anio;
-            cout << "\n\t--------------\n";
-            cout << "\nTRANSACCIONES PARA LA FECHA\n";
-            cout << "\n\t--------------\n";
+            cout << "\n--------------------------------------\n";
+            cout << "TRANSACCIONES PARA LA FECHA "<<dia<<"-"<<mes<<"-"<<anio;
+            cout << "\n---------------------------------------\n\n";
             myblockchain->buscarPorFechaArbolTransaccion(dia, mes, anio);
             cout << endl;
         }
@@ -160,10 +160,13 @@ void menuBusquedaArbol(BlockChain *myblockchain)
         {
             int begin, end;
             cout << "\nIngrese el rango de monto: \n";
-            cout << "\nIngrese inicio: ";
+            cout << "\nIngrese inicio:\t ";
             cin >> begin;
-            cout << "\nIngrese final: ";
+            cout << "\nIngrese final:\t ";
             cin >> end;
+            cout << "\n---------------------------------------------\n";
+            cout << "TRANSACCIONES ENTRE LOS MONTOS "<<begin<<" - "<<end;
+            cout << "\n---------------------------------------------\n\n";
             if (!(begin <= end))
                 continue;
             myblockchain->buscarPorMontoArbolTransaccionMonto(begin, end);
@@ -172,8 +175,11 @@ void menuBusquedaArbol(BlockChain *myblockchain)
         else if (ope == 3)
         {
             string nombre;
-            cout << "\nIngrese el nombre del emisario\n";
+            cout << "\nIngrese el nombre del emisario:\t ";
             cin >> nombre;
+            cout << "\n---------------------------------\n";
+            cout << "TRANSACCIONES PARA EL USUARIO "<<nombre;
+            cout << "\n---------------------------------\n\n";
             myblockchain->buscarTransaccionesEmitidasDeUnEmisorX(nombre);
         }
         system("PAUSE");
