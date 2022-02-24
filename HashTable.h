@@ -168,20 +168,6 @@ private:
     {
         DoubleList<Bloque *> *array2 = new DoubleList<Bloque *>[this->capacity * 2];
 
-        // for (int i = 0; i < this->capacity; ++i)
-        //{
-        //
-        //     for (auto iter = this->array[i].begin(); iter != this->array[i].end(); ++iter)
-        //     {
-        //         if (!iter->isEmpty())
-        //         {
-        //             size_t hashcode = getHashCode((*iter).key);
-        //             int index = hashcode % (this->capacity * 2);
-        //             array2[index].push_back(Bloque((*iter).key, (*iter).value));
-        //         }
-        //     }
-        // }
-
         setCapacity(this->capacity * 2);
         delete[] array;
         array = array2;
